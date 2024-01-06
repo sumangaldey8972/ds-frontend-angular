@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed&display=swap");
+
+.heading-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+}
+
+.heading-text {
+  font-size: 2rem;
+  font-family: "Fira Sans Condensed", sans-serif;
+  font-weight: 700;
+}
+
+.create-button {
+  font-family: "Fira Sans Condensed", sans-serif;
+  background-color: #0e1f82;
+}
+
+table {
+  border: 1px solid red;
+  width: 90%;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  margin: auto;
+  border-collapse: collapse;
+}
+
+table > thead > tr {
+  text-align: center;
+}
+
+table > thead > tr > td {
+  font-family: "Fira Sans Condensed", sans-serif;
+  padding: 1rem;
+  color: rgb(80, 80, 80);
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+table > tbody > tr {
+  text-align: center;
+  transition: 0.2s;
+}
+
+td {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+}
+
+tr:hover {
+  background-color: #dddddd;
+}

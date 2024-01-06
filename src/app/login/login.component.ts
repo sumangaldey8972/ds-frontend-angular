@@ -9,7 +9,7 @@ import { UserService } from '../services/user.service';
 import { InputValidationService } from '../services/input-validation.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
-export interface LoginForm {
+interface LoginForm {
   email: FormControl<string>;
   password: FormControl<string>;
 }

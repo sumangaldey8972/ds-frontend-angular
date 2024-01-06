@@ -12,11 +12,20 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
 
 import { HttpClientModule } from '@angular/common/http';
+import { CreateEmployeeComponent } from './dashboard/create-employee/create-employee.component';
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, LoginComponent],
+  declarations: [
+    AppComponent,
+    DashboardComponent,
+    LoginComponent,
+    CreateEmployeeComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -28,6 +37,9 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     MatInputModule,
     MatButtonModule,
+    MatIconModule,
+    MatDialogModule,
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

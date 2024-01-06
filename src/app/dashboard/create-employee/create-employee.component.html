@@ -1,0 +1,122 @@
+<!-- <mat-card> -->
+<h1 mat-dialog-title>Create Employee</h1>
+<!-- <mat-card-content> -->
+<div mat-dialog-content>
+  <form [formGroup]="createEmployeeGroup" (ngSubmit)="submit()">
+    <p>
+      <mat-form-field>
+        <input
+          type="text"
+          matInput
+          placeholder="Employee ID"
+          formControlName="employee_id"
+          [(ngModel)]="empId"
+        />
+      </mat-form-field>
+    </p>
+
+    <div class="error-message">
+      <span *ngIf="empId === '' && loginBtnClick">
+        * Please enter Employee Id
+      </span>
+    </div>
+
+    <p>
+      <mat-form-field>
+        <input
+          type="text"
+          matInput
+          placeholder="Name"
+          formControlName="name"
+          [(ngModel)]="name"
+        />
+      </mat-form-field>
+    </p>
+
+    <div class="error-message">
+      <span *ngIf="name === '' && loginBtnClick">
+        * Please enter Employee name
+      </span>
+    </div>
+
+    <p>
+      <mat-form-field>
+        <input
+          type="text"
+          matInput
+          placeholder="Email"
+          formControlName="email"
+          [(ngModel)]="emailId"
+          (input)="validateEmail($event)"
+        />
+      </mat-form-field>
+    </p>
+
+    <div class="error-message">
+      <span *ngIf="emailId === '' && loginBtnClick">
+        * Please enter Email ID
+      </span>
+      <span *ngIf="!validEmail && emailId !== '' && loginBtnClick">
+        * Please enter Valid Email ID
+      </span>
+    </div>
+
+    <p>
+      <mat-form-field>
+        <input
+          type="number"
+          matInput
+          [(ngModel)]="phone"
+          placeholder="Phone"
+          formControlName="phone"
+          (input)="validatePhone($event)"
+        />
+      </mat-form-field>
+    </p>
+    <div class="error-message">
+      <span *ngIf="phone === '' && loginBtnClick">
+        "Pleae enter phone number"
+      </span>
+    </div>
+
+    <p>
+      <mat-form-field>
+        <input
+          type="text"
+          matInput
+          [(ngModel)]="designation"
+          placeholder="Designation"
+          formControlName="designation"
+        />
+      </mat-form-field>
+    </p>
+    <div class="error-message">
+      <span *ngIf="designation === '' && loginBtnClick">
+        * Please enter Designation
+      </span>
+    </div>
+
+    <p>
+      <mat-form-field>
+        <input
+          type="number"
+          matInput
+          [(ngModel)]="salary"
+          placeholder="Salary"
+          formControlName="salary"
+        />
+      </mat-form-field>
+    </p>
+    <div class="error-message">
+      <span *ngIf="salary === '' && loginBtnClick">
+        * Please enter Salary
+      </span>
+    </div>
+
+    <div class="button">
+      <button type="submit" mat-button>Login</button>
+    </div>
+  </form>
+</div>
+<!-- </mat-card-content> -->
+<!-- </mat-card> -->

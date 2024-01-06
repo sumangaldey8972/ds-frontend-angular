@@ -1,1 +1,46 @@
-<p>dashboard works!</p>
+<div class="heading-section">
+  <div>
+    <p class="heading-text">Employee Management System</p>
+  </div>
+
+  <div>
+    <button
+      mat-raised-button
+      color="primary"
+      class="create-button"
+      (click)="createEmployee()"
+    >
+      <mat-icon>add</mat-icon>
+      Add
+    </button>
+  </div>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <td>Employee ID</td>
+      <td>Name</td>
+      <td>Email</td>
+      <td>Phone</td>
+      <td>Designation</td>
+      <td>Salary</td>
+      <td>Edit</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let employee of empList">
+      <td>{{ employee.employee_id }}</td>
+      <td>{{ employee.name }}</td>
+      <td>{{ employee.email }}</td>
+      <td>{{ employee.phone }}</td>
+      <td>{{ employee.designation }}</td>
+      <td>{{ employee.Salary }}</td>
+      <td>
+        <button mat-raised-button color="primary" class="edit-button">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
