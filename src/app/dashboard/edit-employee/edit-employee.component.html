@@ -1,1 +1,169 @@
-<p>edit-employee works!</p>
+<!-- <mat-card> -->
+<h1 mat-dialog-title>Edit Employee</h1>
+<!-- <mat-card-content> -->
+<div mat-dialog-content>
+  <form [formGroup]="createEmployeeGroup">
+    <p>
+      <mat-form-field>
+        <input
+          type="text"
+          matInput
+          placeholder="Employee ID"
+          formControlName="employee_id"
+          (input)="validateInput('employee_id', '[^a-zA-Z]', 1000)"
+        />
+      </mat-form-field>
+    </p>
+
+    <div class="error-message">
+      <span
+        *ngIf="
+          createEmployeeGroup.controls.employee_id.hasError('required') &&
+          loginBtnClick
+        "
+      >
+        * Please enter Employee Id
+      </span>
+    </div>
+
+    <p>
+      <mat-form-field>
+        <input
+          type="text"
+          matInput
+          placeholder="Name"
+          formControlName="name"
+          (input)="validateInput('name', '[^a-zA-Z\\s]', 50)"
+        />
+      </mat-form-field>
+    </p>
+
+    <div class="error-message">
+      <span
+        *ngIf="
+          createEmployeeGroup.controls.name.hasError('required') &&
+          loginBtnClick
+        "
+      >
+        * Please enter Employee name
+      </span>
+    </div>
+
+    <p>
+      <mat-form-field>
+        <input
+          type="text"
+          matInput
+          placeholder="Email"
+          formControlName="email"
+        />
+      </mat-form-field>
+    </p>
+
+    <!-- <div class="error-message">
+      <span
+        *ngIf="
+          createEmployeeGroup.controls.email.hasError('required') &&
+          loginBtnClick
+        "
+      >
+        * Please enter Email ID
+      </span>
+      <span
+        *ngIf="
+          !validEmail &&
+          !createEmployeeGroup.controls.email.hasError('required') &&
+          loginBtnClick
+        "
+      >
+        * Please enter Valid Email ID
+      </span>
+    </div> -->
+
+    <p>
+      <mat-form-field>
+        <input
+          type="text"
+          matInput
+          placeholder="Phone"
+          formControlName="phone"
+          (input)="validateInput('phone', '[^0-9]', 15)"
+        />
+      </mat-form-field>
+    </p>
+    <div class="error-message">
+      <span
+        *ngIf="
+          createEmployeeGroup.controls.phone.hasError('required') &&
+          loginBtnClick
+        "
+      >
+        * Please enter phone number
+      </span>
+      <span
+        *ngIf="
+          !createEmployeeGroup.controls.phone.hasError('required') &&
+          createEmployeeGroup.controls.phone.value.length < 10 &&
+          loginBtnClick
+        "
+      >
+        * Phone number should be minimum 10
+      </span>
+    </div>
+
+    <p>
+      <mat-form-field>
+        <input
+          type="text"
+          matInput
+          placeholder="Designation"
+          formControlName="designation"
+          (input)="validateInput('designation', '[^a-zA-Z\\s0-9]', 1000)"
+        />
+      </mat-form-field>
+    </p>
+    <div class="error-message">
+      <span
+        *ngIf="
+          createEmployeeGroup.controls.designation.hasError('required') &&
+          loginBtnClick
+        "
+      >
+        * Please enter Designation
+      </span>
+    </div>
+
+    <p>
+      <mat-form-field>
+        <input
+          type="text"
+          matInput
+          placeholder="Salary"
+          formControlName="salary"
+          (input)="validateInput('salary', '[^0-9]', 1000)"
+        />
+      </mat-form-field>
+    </p>
+    <div class="error-message">
+      <span
+        *ngIf="
+          createEmployeeGroup.controls.salary.hasError('required') &&
+          loginBtnClick
+        "
+      >
+        * Please enter Salary
+      </span>
+    </div>
+
+    <div class="footer-section">
+      <div class="button">
+        <button (click)="dialogClose()" mat-button>Close</button>
+      </div>
+      <div class="button">
+        <button (click)="submit()" mat-button>Update</button>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- </mat-card-content> -->
+<!-- </mat-card> -->

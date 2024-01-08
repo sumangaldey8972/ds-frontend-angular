@@ -9,6 +9,7 @@ import { UserService } from '../services/user.service';
 import { InputValidationService } from '../services/input-validation.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SnackbarService } from '../services/snackbar.service';
 
 interface LoginForm {
   email: FormControl<string>;
@@ -33,7 +34,8 @@ export class LoginComponent implements OnInit {
     private _loginServices: UserService,
     private InputValidationService: InputValidationService,
     private _router: Router,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _snackBarServices: SnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -47,6 +49,14 @@ export class LoginComponent implements OnInit {
         validators: [Validators.required],
       }),
     });
+    this._loginRedirect();
+  }
+
+  private _loginRedirect(): void {
+    const token = localStorage.getItem('token');
+    if (token != null || token != undefined) {
+      this._router.navigate(['dashboard']);
+    }
   }
 
   public submit(): void {
@@ -60,17 +70,20 @@ export class LoginComponent implements OnInit {
         next: (response: any) => {
           if (response.status) {
             localStorage.setItem('token', response.token);
+            this._snackBarServices.openSnackbar(`✅ login Successfull!`);
             void this._router.navigate(['/dashboard'], {
               relativeTo: this._route,
             });
           }
         },
         error: (error: HttpErrorResponse) => {
-          console.log(error);
+          this._snackBarServices.openSnackbar(`⚠️ ${error.error.message}`);
         },
       });
     } else {
-      console.log('please enter the required fields');
+      this._snackBarServices.openSnackbar(
+        `⚠️ Please fill the mandatory fields`
+      );
     }
   }
 

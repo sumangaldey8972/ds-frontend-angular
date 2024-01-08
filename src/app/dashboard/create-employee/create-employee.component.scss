@@ -13,3 +13,10 @@
   justify-content: space-between;
   gap: 0.5rem;
 }
+
+::ng-deep .mat-form-field {
+  display: inline-block;
+  position: relative;
+  text-align: left;
+  width: 100%;
+}

@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -9,8 +10,9 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { InputValidationService } from 'src/app/services/input-validation.service';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 
-interface EmployeeForm {
+export interface EmployeeForm {
   employee_id: FormControl<string>;
   name: FormControl<string>;
   email: FormControl<string>;
@@ -25,13 +27,6 @@ interface EmployeeForm {
   styleUrls: ['./create-employee.component.scss'],
 })
 export class CreateEmployeeComponent implements OnInit {
-  public empId = '';
-  public name = '';
-  public emailId = '';
-  public phone = '';
-  public designation = '';
-  public salary = '';
-
   public validEmail: boolean = false;
   public validPhone: boolean = false;
   public loginBtnClick: boolean = false;
@@ -45,9 +40,8 @@ export class CreateEmployeeComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private InputValidationService: InputValidationService,
     private readonly _employeeService: EmployeeService,
-    private _router: Router,
-    private _route: ActivatedRoute,
-    public _dialogRef: MatDialogRef<CreateEmployeeComponent>
+    public _dialogRef: MatDialogRef<CreateEmployeeComponent>,
+    private _snackbarService: SnackbarService
   ) {}
 
   ngOnInit(): void {
@@ -82,7 +76,10 @@ export class CreateEmployeeComponent implements OnInit {
   public submit(): void {
     this.loginBtnClick = true;
 
-    if (this.validEmail && this.phone !== '') {
+    if (
+      this.validEmail &&
+      this.createEmployeeGroup.controls['phone'].value.length > 9
+    ) {
       let token = localStorage.getItem('token')
         ? String(localStorage.getItem('token'))
         : '';
@@ -98,16 +95,16 @@ export class CreateEmployeeComponent implements OnInit {
       this._employeeService.createEmployeeList(data, token).subscribe({
         next: (response) => {
           if (response.status) {
-            console.log(response);
-            void this._router.navigate(['/dashboard'], {
-              relativeTo: this._route,
-            });
+            this._snackbarService.openSnackbar(`✅ ${response.message}`);
             this._dialogRef.close();
           }
         },
+        error: (error: HttpErrorResponse) => {
+          this._snackbarService.openSnackbar(`⚠️ ${error.error.message}`);
+        },
       });
     } else {
-      console.log('not ok');
+      this._snackbarService.openSnackbar(`⚠️ Please fill the mandatory fields`);
     }
   }
 
@@ -115,28 +112,35 @@ export class CreateEmployeeComponent implements OnInit {
     this._dialogRef.close();
   }
 
-  public validateEmail(event: any): void {
+  public validateEmail(): void {
     const value = this.InputValidationService.validateInput(
-      this.emailId,
+      this.createEmployeeGroup.controls['email'].value,
       '[^0-9a-zA-Z@.]',
       100
     );
-    event.target.value = value;
+    this.createEmployeeGroup.controls['email'].setValue(value);
 
     const regex =
       /^([a-zA-Z0-9.]+)([a-zA-Z0-9]+)@([a-zA-Z0-9]+)([.]+)([a-zA-Z]{2,})$/;
-    if (regex.test(this.emailId.toLowerCase())) {
+    if (
+      regex.test(this.createEmployeeGroup.controls['email'].value.toLowerCase())
+    ) {
       this.validEmail = true;
     } else {
       this.validEmail = false;
     }
   }
 
-  public validatePhone(event: any): void {
-    // console.log(event.target.value);
-  }
-
-  public validateSalary(event: any): void {
-    // console.log(event.target.value);
+  public validateInput(
+    controlName: 'employee_id' | 'name' | 'phone' | 'designation' | 'salary',
+    regex: string,
+    maxInputLength: number
+  ): void {
+    const value = this.InputValidationService.validateInput(
+      this.createEmployeeGroup.controls[controlName].value,
+      regex,
+      maxInputLength
+    );
+    this.createEmployeeGroup.controls[controlName].setValue(value);
   }
 }

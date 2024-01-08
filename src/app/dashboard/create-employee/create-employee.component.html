@@ -2,7 +2,7 @@
 <h1 mat-dialog-title>Create Employee</h1>
 <!-- <mat-card-content> -->
 <div mat-dialog-content>
-  <form [formGroup]="createEmployeeGroup" (ngSubmit)="submit()">
+  <form [formGroup]="createEmployeeGroup">
     <p>
       <mat-form-field>
         <input
@@ -10,13 +10,18 @@
           matInput
           placeholder="Employee ID"
           formControlName="employee_id"
-          [(ngModel)]="empId"
+          (input)="validateInput('employee_id', '[^a-zA-Z]', 1000)"
         />
       </mat-form-field>
     </p>
 
     <div class="error-message">
-      <span *ngIf="empId === '' && loginBtnClick">
+      <span
+        *ngIf="
+          createEmployeeGroup.controls.employee_id.hasError('required') &&
+          loginBtnClick
+        "
+      >
         * Please enter Employee Id
       </span>
     </div>
@@ -28,13 +33,18 @@
           matInput
           placeholder="Name"
           formControlName="name"
-          [(ngModel)]="name"
+          (input)="validateInput('name', '[^a-zA-Z\\s]', 50)"
         />
       </mat-form-field>
     </p>
 
     <div class="error-message">
-      <span *ngIf="name === '' && loginBtnClick">
+      <span
+        *ngIf="
+          createEmployeeGroup.controls.name.hasError('required') &&
+          loginBtnClick
+        "
+      >
         * Please enter Employee name
       </span>
     </div>
@@ -46,36 +56,28 @@
           matInput
           placeholder="Email"
           formControlName="email"
-          [(ngModel)]="emailId"
-          (input)="validateEmail($event)"
+          (input)="validateEmail()"
         />
       </mat-form-field>
     </p>
 
     <div class="error-message">
-      <span *ngIf="emailId === '' && loginBtnClick">
+      <span
+        *ngIf="
+          createEmployeeGroup.controls.email.hasError('required') &&
+          loginBtnClick
+        "
+      >
         * Please enter Email ID
       </span>
-      <span *ngIf="!validEmail && emailId !== '' && loginBtnClick">
+      <span
+        *ngIf="
+          !validEmail &&
+          !createEmployeeGroup.controls.email.hasError('required') &&
+          loginBtnClick
+        "
+      >
         * Please enter Valid Email ID
-      </span>
-    </div>
-
-    <p>
-      <mat-form-field>
-        <input
-          type="number"
-          matInput
-          [(ngModel)]="phone"
-          placeholder="Phone"
-          formControlName="phone"
-          (input)="validatePhone($event)"
-        />
-      </mat-form-field>
-    </p>
-    <div class="error-message">
-      <span *ngIf="phone === '' && loginBtnClick">
-        "Pleae enter phone number"
       </span>
     </div>
 
@@ -84,14 +86,50 @@
         <input
           type="text"
           matInput
-          [(ngModel)]="designation"
-          placeholder="Designation"
-          formControlName="designation"
+          placeholder="Phone"
+          formControlName="phone"
+          (input)="validateInput('phone', '[^0-9]', 15)"
         />
       </mat-form-field>
     </p>
     <div class="error-message">
-      <span *ngIf="designation === '' && loginBtnClick">
+      <span
+        *ngIf="
+          createEmployeeGroup.controls.phone.hasError('required') &&
+          loginBtnClick
+        "
+      >
+        * Please enter phone number
+      </span>
+      <span
+        *ngIf="
+          !createEmployeeGroup.controls.phone.hasError('required') &&
+          createEmployeeGroup.controls.phone.value.length < 10 &&
+          loginBtnClick
+        "
+      >
+        * Phone number should be minimum 10
+      </span>
+    </div>
+
+    <p>
+      <mat-form-field>
+        <input
+          type="text"
+          matInput
+          placeholder="Designation"
+          formControlName="designation"
+          (input)="validateInput('designation', '[^a-zA-Z\\s0-9]', 1000)"
+        />
+      </mat-form-field>
+    </p>
+    <div class="error-message">
+      <span
+        *ngIf="
+          createEmployeeGroup.controls.designation.hasError('required') &&
+          loginBtnClick
+        "
+      >
         * Please enter Designation
       </span>
     </div>
@@ -99,16 +137,21 @@
     <p>
       <mat-form-field>
         <input
-          type="number"
+          type="text"
           matInput
-          [(ngModel)]="salary"
           placeholder="Salary"
           formControlName="salary"
+          (input)="validateInput('salary', '[^0-9]', 1000)"
         />
       </mat-form-field>
     </p>
     <div class="error-message">
-      <span *ngIf="salary === '' && loginBtnClick">
+      <span
+        *ngIf="
+          createEmployeeGroup.controls.salary.hasError('required') &&
+          loginBtnClick
+        "
+      >
         * Please enter Salary
       </span>
     </div>
@@ -118,7 +161,7 @@
         <button (click)="dialogClose()" mat-button>Close</button>
       </div>
       <div class="button">
-        <button type="submit" mat-button>Create</button>
+        <button (click)="submit()" mat-button>Create</button>
       </div>
     </div>
   </form>

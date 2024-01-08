@@ -26,15 +26,22 @@ interface editEmployee {
 export class EmployeeService {
   constructor(private readonly _http: HttpClient) {}
 
-  public getEmployeeList(token: string): Observable<employeeList> {
+  public getEmployeeList(
+    page: number,
+    limit: number,
+    token: string
+  ): Observable<employeeList> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json', // You may need to adjust the content type based on your API requirements
     });
-    return this._http.get<employeeList>('http://localhost:8080', {
-      withCredentials: true,
-      headers: headers,
-    });
+    return this._http.get<employeeList>(
+      `http://localhost:8080?page=${page}&limit=${limit}`,
+      {
+        withCredentials: true,
+        headers: headers,
+      }
+    );
   }
 
   public createEmployeeList(

@@ -15,6 +15,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { HttpClientModule } from '@angular/common/http';
 import { CreateEmployeeComponent } from './dashboard/create-employee/create-employee.component';
@@ -42,6 +44,8 @@ import { EditEmployeeComponent } from './dashboard/edit-employee/edit-employee.c
     MatIconModule,
     MatDialogModule,
     MatTableModule,
+    MatSnackBarModule,
+    MatPaginatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

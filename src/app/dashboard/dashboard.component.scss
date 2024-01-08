@@ -34,8 +34,9 @@ table > thead > tr > td {
   font-family: "Fira Sans Condensed", sans-serif;
   padding: 1rem;
   color: rgb(80, 80, 80);
-  font-weight: 400;
+  font-weight: 600;
   font-size: 1rem;
+  background-color: #d8d8d8;
 }
 
 table > tbody > tr {
@@ -51,4 +52,13 @@ td {
 
 tr:hover {
   background-color: #dddddd;
+}
+
+.no-data-div {
+  text-align: center;
+}
+
+.button-div {
+  display: flex;
+  gap: 1rem;
 }

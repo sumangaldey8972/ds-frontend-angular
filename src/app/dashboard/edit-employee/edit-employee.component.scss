@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed&display=swap");
+
+.error-message {
+  font-size: 0.7rem;
+  margin: 5px 0;
+  color: red;
+  font-family: "Fira Sans Condensed", sans-serif;
+  display: grid;
+}
+
+.footer-section {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+::ng-deep .mat-form-field {
+  display: inline-block;
+  position: relative;
+  text-align: left;
+  width: 100%;
+}
