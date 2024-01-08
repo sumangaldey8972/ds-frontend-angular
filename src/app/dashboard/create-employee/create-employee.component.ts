@@ -5,6 +5,9 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { EmployeeService } from 'src/app/services/employee.service';
 import { InputValidationService } from 'src/app/services/input-validation.service';
 
 interface EmployeeForm {
@@ -40,7 +43,11 @@ export class CreateEmployeeComponent implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private InputValidationService: InputValidationService
+    private InputValidationService: InputValidationService,
+    private readonly _employeeService: EmployeeService,
+    private _router: Router,
+    private _route: ActivatedRoute,
+    public _dialogRef: MatDialogRef<CreateEmployeeComponent>
   ) {}
 
   ngOnInit(): void {
@@ -76,10 +83,36 @@ export class CreateEmployeeComponent implements OnInit {
     this.loginBtnClick = true;
 
     if (this.validEmail && this.phone !== '') {
-      console.log(this.createEmployeeGroup.value);
+      let token = localStorage.getItem('token')
+        ? String(localStorage.getItem('token'))
+        : '';
+      let data = {
+        employee_id: this.createEmployeeGroup.value.employee_id,
+        name: this.createEmployeeGroup.value.name,
+        email: this.createEmployeeGroup.value.email,
+        phone: this.createEmployeeGroup.value.phone?.toString(),
+        designation: this.createEmployeeGroup.value.designation,
+        salary: this.createEmployeeGroup.value.salary,
+      };
+
+      this._employeeService.createEmployeeList(data, token).subscribe({
+        next: (response) => {
+          if (response.status) {
+            console.log(response);
+            void this._router.navigate(['/dashboard'], {
+              relativeTo: this._route,
+            });
+            this._dialogRef.close();
+          }
+        },
+      });
     } else {
       console.log('not ok');
     }
+  }
+
+  public dialogClose(): void {
+    this._dialogRef.close();
   }
 
   public validateEmail(event: any): void {
@@ -100,10 +133,10 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   public validatePhone(event: any): void {
-    console.log(event.target.value);
+    // console.log(event.target.value);
   }
 
   public validateSalary(event: any): void {
-    console.log(event.target.value);
+    // console.log(event.target.value);
   }
 }

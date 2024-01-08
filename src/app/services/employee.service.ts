@@ -9,12 +9,15 @@ interface employeeList {
 }
 
 interface createEmployee {
-  designation: string;
-  email: string;
-  employee_id: string;
-  name: string;
-  phone: string;
-  salary: number;
+  status: boolean;
+  status_code: number;
+  message: string;
+}
+
+interface editEmployee {
+  status: boolean;
+  status_code: number;
+  message: string;
 }
 
 @Injectable({
@@ -35,13 +38,38 @@ export class EmployeeService {
   }
 
   public createEmployeeList(
-    employeeData: FormData
+    employeeData: any,
+    token: string
   ): Observable<createEmployee> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
     return this._http.post<createEmployee>(
       'http://localhost:8080',
       employeeData,
       {
         withCredentials: true,
+        headers: headers,
+      }
+    );
+  }
+
+  public editEmployeeList(
+    employeeData: any,
+    token: string,
+    id: any
+  ): Observable<editEmployee> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
+    return this._http.patch<editEmployee>(
+      `http://localhost:8080/edit?employee_id=${id}`,
+      employeeData,
+      {
+        withCredentials: true,
+        headers: headers,
       }
     );
   }

@@ -7,3 +7,9 @@
   font-family: "Fira Sans Condensed", sans-serif;
   display: grid;
 }
+
+.footer-section {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
