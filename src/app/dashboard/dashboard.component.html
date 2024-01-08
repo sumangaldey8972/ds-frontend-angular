@@ -24,18 +24,18 @@
       <td>Email</td>
       <td>Phone</td>
       <td>Designation</td>
-      <td>Salary</td>
+      <!-- <td>Salary</td> -->
       <td>Edit</td>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let employee of empList">
-      <td>{{ employee.employee_id }}</td>
-      <td>{{ employee.name }}</td>
-      <td>{{ employee.email }}</td>
-      <td>{{ employee.phone }}</td>
-      <td>{{ employee.designation }}</td>
-      <td>{{ employee.Salary }}</td>
+      <td>{{ employee.employee_id ? employee.employee_id : "--" }}</td>
+      <td>{{ employee.name ? employee.name : "--" }}</td>
+      <td>{{ employee.email ? employee.email : "--" }}</td>
+      <td>{{ employee.phone ? employee.phone : "--" }}</td>
+      <td>{{ employee.designation ? employee.designation : "--" }}</td>
+      <!-- <td>{{ employee.salary ? employee.salary : -- }}</td> -->
       <td>
         <button mat-raised-button color="primary" class="edit-button">
           <mat-icon>edit</mat-icon>

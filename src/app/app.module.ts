@@ -18,6 +18,7 @@ import { MatTableModule } from '@angular/material/table';
 
 import { HttpClientModule } from '@angular/common/http';
 import { CreateEmployeeComponent } from './dashboard/create-employee/create-employee.component';
+import { EditEmployeeComponent } from './dashboard/edit-employee/edit-employee.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { CreateEmployeeComponent } from './dashboard/create-employee/create-empl
     DashboardComponent,
     LoginComponent,
     CreateEmployeeComponent,
+    EditEmployeeComponent,
   ],
   imports: [
     BrowserModule,

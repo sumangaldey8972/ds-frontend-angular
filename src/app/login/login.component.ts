@@ -8,6 +8,7 @@ import {
 import { UserService } from '../services/user.service';
 import { InputValidationService } from '../services/input-validation.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 
 interface LoginForm {
   email: FormControl<string>;
@@ -30,7 +31,9 @@ export class LoginComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private _loginServices: UserService,
-    private InputValidationService: InputValidationService
+    private InputValidationService: InputValidationService,
+    private _router: Router,
+    private _route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -48,14 +51,19 @@ export class LoginComponent implements OnInit {
 
   public submit(): void {
     this.loginBtnClick = true;
-
     if (this.validEmail && this.isPassword !== '') {
-      const formData = new FormData();
-      formData.append('email', this.emailId);
-      formData.append('password', this.isPassword);
-      this._loginServices.userLogin(formData).subscribe({
+      let data = {
+        email: this.emailId,
+        password: this.isPassword,
+      };
+      this._loginServices.userLogin(data).subscribe({
         next: (response: any) => {
-          console.log(response);
+          if (response.status) {
+            localStorage.setItem('token', response.token);
+            void this._router.navigate(['/dashboard'], {
+              relativeTo: this._route,
+            });
+          }
         },
         error: (error: HttpErrorResponse) => {
           console.log(error);
