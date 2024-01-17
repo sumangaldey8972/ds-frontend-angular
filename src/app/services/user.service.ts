@@ -15,9 +15,13 @@ interface loginResponse {
 export class UserService {
   constructor(private readonly _http: HttpClient) {}
 
-  public userLogin(userData: any): Observable<any> {
-    return this._http.post<any>('http://localhost:8080/login', userData, {
-      withCredentials: true,
-    });
+  public userLogin(userData: any): Observable<loginResponse> {
+    return this._http.post<loginResponse>(
+      'http://localhost:8080/login',
+      userData,
+      {
+        withCredentials: true,
+      }
+    );
   }
 }

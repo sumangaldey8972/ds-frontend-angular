@@ -1,0 +1,27 @@
+<h2 class="heading">Confirmation!</h2>
+<div style="border: 2px solid black"></div>
+
+<p class="info-text">
+  Are you sure you want to proceed? This action cannot be undone
+</p>
+
+<div class="footer-sention">
+  <button
+    mat-stroked-button
+    color="primary"
+    class="edit-button"
+    title="cancel this action"
+    (click)="dialogClosed()"
+  >
+    Cancel
+  </button>
+  <button
+    (click)="deleteEmployee()"
+    mat-stroked-button
+    color="warn"
+    class="edit-button"
+    title="Sure?"
+  >
+    Delete
+  </button>
+</div>

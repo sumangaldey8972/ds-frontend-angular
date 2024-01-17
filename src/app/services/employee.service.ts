@@ -20,6 +20,12 @@ interface editEmployee {
   message: string;
 }
 
+interface deleteEmployee {
+  status: boolean;
+  status_code: number;
+  message: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -29,14 +35,15 @@ export class EmployeeService {
   public getEmployeeList(
     page: number,
     limit: number,
-    token: string
+    token: string,
+    search: string
   ): Observable<employeeList> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json', // You may need to adjust the content type based on your API requirements
+      'Content-Type': 'application/json',
     });
     return this._http.get<employeeList>(
-      `http://localhost:8080?page=${page}&limit=${limit}`,
+      `http://localhost:8080?page=${page}&limit=${limit}&search=${search}`,
       {
         withCredentials: true,
         headers: headers,
@@ -74,6 +81,23 @@ export class EmployeeService {
     return this._http.patch<editEmployee>(
       `http://localhost:8080/edit?employee_id=${id}`,
       employeeData,
+      {
+        withCredentials: true,
+        headers: headers,
+      }
+    );
+  }
+
+  public deleteEmployee(
+    employee_id: any,
+    token: string
+  ): Observable<deleteEmployee> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
+    return this._http.delete<deleteEmployee>(
+      `http://localhost:8080/delete?employee_id=${employee_id}`,
       {
         withCredentials: true,
         headers: headers,

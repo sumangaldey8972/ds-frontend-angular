@@ -9,12 +9,18 @@
       color="primary"
       class="create-button"
       (click)="createEmployee()"
+      title="add an employee to the list"
     >
       <mat-icon>add</mat-icon>
       Add
     </button>
 
-    <button mat-raised-button color="warn" (click)="logout()">
+    <button
+      mat-raised-button
+      color="warn"
+      (click)="logout()"
+      title="logout from the system"
+    >
       <mat-icon>logout</mat-icon>
       Logout
     </button>
@@ -24,6 +30,17 @@
 <div [hidden]="totalDocs > 0" class="no-data-div">
   <img src="../../assets/no-data.avif" alt="" />
 </div>
+
+<mat-form-field class="example-full-width" appearance="fill">
+  <mat-label>Search</mat-label>
+  <input
+    matInput
+    [(ngModel)]="inputValue"
+    (ngModelChange)="onSearch($event)"
+    placeholder="Ex. Jhon Doe"
+    value=""
+  />
+</mat-form-field>
 
 <div [hidden]="totalDocs == 0">
   <table>
@@ -35,26 +52,52 @@
         <td>Phone</td>
         <td>Designation</td>
         <td>Salary</td>
-        <td>Edit</td>
+        <td>Action</td>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let employee of empList; let i = index">
-        <td>{{ employee.employee_id ? employee.employee_id : "--" }}</td>
-        <td>{{ employee.name ? employee.name : "--" }}</td>
-        <td>{{ employee.email ? employee.email : "--" }}</td>
-        <td>{{ employee.phone ? employee.phone : "--" }}</td>
-        <td>{{ employee.designation ? employee.designation : "--" }}</td>
-        <td>{{ employee.salary ? employee.salary : "--" }}</td>
         <td>
-          <button
-            (click)="editEmployee(i)"
-            mat-raised-button
-            color="primary"
-            class="edit-button"
-          >
-            <mat-icon>edit</mat-icon>
-          </button>
+          <p>{{ employee.employee_id ? employee.employee_id : "--" }}</p>
+        </td>
+        <td>
+          <p>{{ employee.name ? employee.name : "--" }}</p>
+        </td>
+        <td>
+          <p>{{ employee.email ? employee.email : "--" }}</p>
+        </td>
+        <td>
+          <p>{{ employee.phone ? employee.phone : "--" }}</p>
+        </td>
+        <td>
+          <p>
+            {{ employee.designation ? employee.designation : "--" }}
+          </p>
+        </td>
+        <td>
+          <p>{{ employee.salary ? employee.salary : "--" }}</p>
+        </td>
+        <td>
+          <div class="action-div">
+            <button
+              (click)="editEmployee(i)"
+              mat-stroked-button
+              color="primary"
+              class="button"
+              title="edit an employee from the list"
+            >
+              <mat-icon class="icon">edit</mat-icon>
+            </button>
+            <button
+              (click)="deleteEmployee(i)"
+              mat-stroked-button
+              color="warn"
+              class="button"
+              title="delete an employee from the list"
+            >
+              <mat-icon class="icon">delete</mat-icon>
+            </button>
+          </div>
         </td>
       </tr>
     </tbody>

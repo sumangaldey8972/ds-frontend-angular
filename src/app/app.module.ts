@@ -21,6 +21,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { HttpClientModule } from '@angular/common/http';
 import { CreateEmployeeComponent } from './dashboard/create-employee/create-employee.component';
 import { EditEmployeeComponent } from './dashboard/edit-employee/edit-employee.component';
+import { DeleteEmployeeComponent } from './dashboard/delete-employee/delete-employee.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { EditEmployeeComponent } from './dashboard/edit-employee/edit-employee.c
     LoginComponent,
     CreateEmployeeComponent,
     EditEmployeeComponent,
+    DeleteEmployeeComponent,
   ],
   imports: [
     BrowserModule,

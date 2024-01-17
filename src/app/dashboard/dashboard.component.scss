@@ -32,10 +32,10 @@ table > thead > tr {
 
 table > thead > tr > td {
   font-family: "Fira Sans Condensed", sans-serif;
-  padding: 1rem;
+  padding: 0.2rem;
   color: rgb(80, 80, 80);
-  font-weight: 600;
-  font-size: 1rem;
+  font-weight: 800;
+  font-size: 0.7rem;
   background-color: #d8d8d8;
 }
 
@@ -44,10 +44,14 @@ table > tbody > tr {
   transition: 0.2s;
 }
 
+table > tbody > tr > td > p {
+  margin: 0;
+  font-size: 0.7rem;
+}
+
 td {
   border: 1px solid #dddddd;
-  text-align: center;
-  padding: 8px;
+  // padding: 8px;
 }
 
 tr:hover {
@@ -61,4 +65,26 @@ tr:hover {
 .button-div {
   display: flex;
   gap: 1rem;
+}
+
+.action-div {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.action-div > button {
+  width: 24px;
+  height: 30px;
+  text-align: center;
+}
+
+.icon {
+  font-size: 17px;
+}
+
+.mat-form-field {
+  display: block;
+  width: 50%;
+  margin: auto;
 }
